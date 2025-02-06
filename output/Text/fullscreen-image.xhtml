@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="" xml:lang="" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link href="../Styles/fullscreen.css" rel="stylesheet"/>
+    <link href="../Styles/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="../Styles/fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="../Styles/fontawesome/css/solid.css" rel="stylesheet" />
+    <script defer="defer" src="../Misc/fullscreen.js"></script>
+    <title>Εικόνα Πλήρους Οθόνης</title>
+</head>
+<body>
+    
+    <div id="image-container">
+        <img id="fullscreenImg" class="fade" src="" />
+    </div>
+    <div id="menu">
+        <button class="zoom-in" onclick="zoomIn()">
+        <i class="fa-solid fa-magnifying-glass-plus"></i>
+    </button>
+    <button class="zoom-out" onclick="zoomOut()">
+        <i class="fa-solid fa-magnifying-glass-minus"></i>
+    </button>
+    <button class="go-back" onclick="goBack()">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    </div>
+    <p id="caption" class="fade"></p>
+</body>
+</html>

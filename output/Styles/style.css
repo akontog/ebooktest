@@ -1,0 +1,345 @@
+
+:root {
+  --sidebar-width:300px;
+  --blue: #1e90ff;
+  --white: #ffffff;
+  --laptop: 800px;
+}
+/**** Δομή σελίδας ****/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    padding: 0;
+}
+.container {
+    display: flex;
+    max-width: 100%;
+    min-height: 100vh;
+}
+.sidebar-left, .sidebar-right {
+    flex: 1; /* Παίρνουν διαθέσιμο χώρο */
+    max-width: var(--sidebar-width); /* Μέγιστο πλάτος */
+    
+    padding: 15px;
+    min-height: 100vh;
+}
+
+
+.content {
+    flex: 2; /* Παίρνει περισσότερο χώρο */
+    min-width: 500px;
+    padding: 20px;
+   
+}
+header {
+    
+    height: 100px; /* Ύψος κεφαλίδας */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.sidebar-left, .sidebar-right, .nav-menu {
+    background-color: #EED9C4;
+}
+/**** Πτυσσόμενο μενού ****/
+.nav-menu {
+    position: fixed;
+    top: 50px;
+    left: -300px; /* Κρυφό αρχικά */
+    height:100%;
+    width: var(--sidebar-width);
+    transition: left 0.3s ease; /* Ομαλή κίνηση */
+    padding-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.nav-menu ul {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.nav-menu li {
+    padding: 5px 0px;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #101010;
+    padding: 5px 5px;
+    font-size:12px;
+    display: block;
+}
+
+.nav-menu li a:hover {
+    cursor: pointer;
+    color: #000000;
+}
+
+/* Υπομενού (κρυφό από προεπιλογή) */
+.nav-menu li ul {
+    margin-left: 15px;
+    padding: 0;
+    display: none; /* Κρυφό από προεπιλογή */
+}
+
+/* Όταν το μενού είναι ανοιχτό */
+.nav-menu.open {
+    left: 0;
+}
+.nav-menu li.open > ul {
+    display: block; /* Εμφάνιση του υπομενού */
+}
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-toggle:hover {
+    background-color: #575757;
+}
+
+/**** Popup εικόνων ****/
+.image-popup {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+    width: 200px;
+    height: 220px;
+}
+
+.image-popup-image-wrapper {
+
+    overflow: auto; /* Scrollbar αν χρειαστεί */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-popup-image {
+    
+    height: auto;
+    overflow: auto;
+}
+
+
+.image-popup-caption {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    overflow: auto;
+}
+
+.image-popup-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/**** popup όρων ****/
+.popup {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    width: 200px;
+    height: 220px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+    z-index: 1000;
+    transition: all 0.5s ease;
+    @media (min-width: 800px) {
+        width:25%;
+    }
+    @media (max-width: 799px) {
+            width:100%;
+    }
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.popup-title {
+    font-size: 16px;
+    margin: 0;
+}
+.popup-main-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    
+
+}
+.popup-move,
+.popup-close,
+.popup-back,
+.popup-forward{
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+.popup-definition {
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: normal;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    height: auto;
+    flex-grow: 1;
+    color: #444;
+}
+.popup-category,
+.popup-synonyms,
+.popup-antonyms,
+.popup-terms {
+    padding: 5px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.popup-category {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.popup-synonyms {
+    color: #008000;
+}
+.popup-antonyms {
+    color: #000080;
+}
+
+.popup-terms {
+    color: #800000;
+}
+.popup .image-popup-image {
+    max-width: 100px; /* Μικρό πλάτος */
+    max-height: 100px; /* Μικρό ύψος */
+    width: auto;
+    height: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+
+button {
+    font-size: 1rem;
+    background: none; 
+    border: none;
+    cursor: pointer;
+    color: #333;
+}
+
+button:hover {
+    color: #007BFF;
+}
+
+/* Στυλ για απενεργοποιημένα κουμπιά */
+button:disabled {
+    cursor: not-allowed; 
+    color: #aaa; 
+    opacity: 0.6;
+    pointer-events: none;
+}
+/**** Σύνδεσμοι μέσα στο κείμενο ****/
+/* color: inherit; Διατηρεί το αρχικό χρώμα του κειμένου */
+.glossary-term, .image-term, .first-glossary-term{
+    cursor: pointer;
+    color: inherit; 
+    text-decoration: underline;
+    text-decoration-style: dotted; 
+    
+}
+/* Ο πρώτος όρος κόκκινος οι υπόλοιποι μπλε*/
+.first-glossary-term{
+    text-decoration-color: red;
+}
+.glossary-term, .image-term{
+    text-decoration-color: blue;
+}
+/**** Εικόνες στην ροή του κειμένου ****/
+figure {
+  text-align: center;
+  margin-bottom: 20px; /* Προσαρμόστε το περιθώριο κάτω από την εικόνα */
+}
+
+figcaption {
+  font-style: italic;
+  font-size: 0.8em; /* Μικρότερη γραμματοσειρά */
+  margin-top: 10px; /* Προσθήκη περιθωρίου πάνω από το caption */
+  margin-bottom: 50px; /* Προσθήκη περιθωρίου κάτω από το caption */
+}
+
+.text-image{
+    @media (min-width: 800px) {
+        width:70%;
+    }
+    @media (max-width: 799px) {
+        width:100%;
+    }
+}
+/**** Κουμπί επιστροφής ****/
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-size: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.back-to-top:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+}
+
+
+/**** Responsive ****/
+@media (max-width: 800px) { 
+    .sidebar-left, .sidebar-right {
+        display: none; /* Κρύβονται όταν δεν χωράνε */
+    }
+}
