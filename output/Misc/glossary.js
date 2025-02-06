@@ -6307,7 +6307,7 @@ glossary.set("σάλα", {
     english: "None",
     design: true,
     photo: false,
-    path: '../images/glossary/sala.jpeg',
+    path: '../Images/glossary/sala.jpeg',
     termsindefinition: []
 });
 glossary.set("σαλέτο", {
