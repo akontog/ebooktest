@@ -191,15 +191,24 @@ window.onload = function () {
                 // Αν υπάρχει υπομενού
                 if (submenu) {
                     console.log("υπάρχει υπομενού");
+                    const arrowIcon = clickedElement.querySelector('i'); // το βελάκι
                     // Αν το υπομενού είναι ανοιχτό, το κλείνουμε
                     if (parentLi.classList.contains('open')) {
                         parentLi.classList.remove('open');
+                        if (arrowIcon) {
+                            arrowIcon.classList.remove('fa-angle-down');
+                            arrowIcon.classList.add('fa-angle-right'); // Βελάκι προς τα δεξιά
+                        }
                     } else {
                         document.querySelectorAll('.nav-menu li.open').forEach(function(openItem) {
                             openItem.classList.remove('open');
                         });
                         // Ανοίγουμε το υπομενού
                         parentLi.classList.add('open');
+                        if (arrowIcon) {
+                            arrowIcon.classList.remove('fa-angle-right');
+                            arrowIcon.classList.add('fa-angle-down'); // Βελάκι προς τα κάτω
+                        }
                     }
                 }
             }
