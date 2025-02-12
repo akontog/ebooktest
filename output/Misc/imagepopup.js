@@ -9,6 +9,7 @@ class ImagePopup  extends Popup{
         this.popupElement = document.createElement('div');
         this.createPopupElement();
         document.body.appendChild(this.popupElement);
+        this.popupElement.style.display="none";
     }
 
     // Δημιουργία DOM στοιχείου για το popup
@@ -83,6 +84,7 @@ class ImagePopup  extends Popup{
     setPosition(x, y) {
         this.x = x;
         this.y = y;
+        this.popupElement.style.display = 'block';
         this.popupElement.style.position = 'absolute';
         this.popupElement.style.left = `${x}px`;
         this.popupElement.style.top = `${y}px`;

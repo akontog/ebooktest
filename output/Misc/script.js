@@ -1,4 +1,6 @@
 window.onload = function () {
+    // βελάκι στο navigation menu
+    let arrowIcon = null;
     // Πλάτος οθόνης
     const screenWidth = window.innerWidth;
 
@@ -129,39 +131,44 @@ window.onload = function () {
 
         }
         // click σε εικόνα
-        else if (clickedElement.tagName == 'img'){
+        else if (clickedElement.tagName == 'img' || clickedElement.classList.contains('fa-arrow-right')){
             console.log('click σε img');
             //  (στο αρχικό κείμενο και όχι μέσα σε popup)
             let figureElement = clickedElement.closest('figure');
             if (figureElement) {
-                const imageId = clickedElement.id;
-                console.log(imageId);
-                const imageData = imageMap.get(imageId);
-                if (imageData) {
-                    console.log("Στοιχεία Εικόνας:", imageData);
-                } else {
-                    console.log("Η εικόνα δεν βρέθηκε στο Map");
-                }
-                const captionParts = imageData.caption.split(":");
-                const beforeColon = captionParts[0].trim(); // Πριν το ":"
-                const afterColon = captionParts.slice(1).join(":").trim(); // Μετά το ":"
-                let clickY = event.clientY+ window.scrollY;
-                console.log("clickY:", clickY);
-                if (imagepopup!=null){
-                    imagepopup.hide();
-                }
-                imagepopup = new ImagePopup(beforeColon,imageData.src,afterColon);
-                ypos = findAvailableY(clickY-50,ImagePopup.height);
-                console.log("ypos:", ypos);
-                
-                xpos = screenWidth * 0.75; // Δεξιά του όρου
-                // = popupTop; // Στο ύψος του όρου
-                imagepopup.setPosition(xpos,ypos);
-                termpopups.forEach((popup, key) => {
-                    if (popup.wasVisible) {
-                        popup.hide();
+                console.log("figureElement")
+                //const imageId = clickedElement.id;
+                //console.log(imageId);
+                let imageElement = figureElement.querySelector('img');
+                if (imageElement) {
+                    const imageId = imageElement.id;
+                    const imageData = imageMap.get(imageId);
+                    if (imageData) {
+                        console.log("Στοιχεία Εικόνας:", imageData);
+                    } else {
+                        console.log("Η εικόνα δεν βρέθηκε στο Map");
                     }
-                });
+                    const captionParts = imageData.caption.split(":");
+                    const beforeColon = captionParts[0].trim(); // Πριν το ":"
+                    const afterColon = captionParts.slice(1).join(":").trim(); // Μετά το ":"
+                    let clickY = event.clientY+ window.scrollY;
+                    console.log("clickY:", clickY);
+                    if (imagepopup!=null){
+                        imagepopup.hide();
+                    }
+                    imagepopup = new ImagePopup(beforeColon,imageData.src,afterColon);
+                    ypos = findAvailableY(clickY-50,ImagePopup.height);
+                    console.log("ypos:", ypos);
+                    
+                    xpos = screenWidth * 0.75; // Δεξιά του όρου
+                    // = popupTop; // Στο ύψος του όρου
+                    imagepopup.setPosition(xpos,ypos);
+                    termpopups.forEach((popup, key) => {
+                        if (popup.wasVisible) {
+                            popup.hide();
+                        }
+                    });
+                }
             }
         }
         // click σε κλείσιμο εικόνας 
@@ -191,18 +198,28 @@ window.onload = function () {
                 // Αν υπάρχει υπομενού
                 if (submenu) {
                     console.log("υπάρχει υπομενού");
-                    const arrowIcon = clickedElement.querySelector('i'); // το βελάκι
+                   
                     // Αν το υπομενού είναι ανοιχτό, το κλείνουμε
                     if (parentLi.classList.contains('open')) {
                         parentLi.classList.remove('open');
+                        arrowIcon = clickedElement.querySelector('i');
                         if (arrowIcon) {
                             arrowIcon.classList.remove('fa-angle-down');
-                            arrowIcon.classList.add('fa-angle-right'); // Βελάκι προς τα δεξιά
+                            arrowIcon.classList.add('fa-angle-right');
                         }
                     } else {
+
+                        if (arrowIcon) {
+                                console.log('arrow not null');
+                                arrowIcon.classList.remove('fa-angle-down');
+                                arrowIcon.classList.add('fa-angle-right');
+                            }
+                        // Κλείνουμε αν κάποιο άλλο είναι ανοιχτό
                         document.querySelectorAll('.nav-menu li.open').forEach(function(openItem) {
                             openItem.classList.remove('open');
+                            
                         });
+                        arrowIcon = clickedElement.querySelector('i');
                         // Ανοίγουμε το υπομενού
                         parentLi.classList.add('open');
                         if (arrowIcon) {
@@ -287,8 +304,4 @@ window.onload = function () {
     window.onresize = function() {
         console.log("resize");
     }
-
-    
-    
-   
 };

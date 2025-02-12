@@ -13,6 +13,8 @@ class TermPopup extends Popup{
         // Προσθήκη περιεχομένου
         if (ispinned)
             this.updatePopupContent(definition);
+        else
+            this.popupElement.style.display="none";
         // Προσθήκη του popup στο DOM
         document.body.appendChild(this.popupElement);
         this.updateNavigationButtons();
