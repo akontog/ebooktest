@@ -88,6 +88,9 @@ window.onload = function () {
         // το κεντρικό μενού
         const menu = document.querySelector('.nav-menu'); 
         console.log('onBodyClick: '+clickedElement.textContent.trim());
+        if (clickedElement.id === "lightbox") {
+            clickedElement.classList.remove("active");
+        }
         // click σε όρο
         if (clickedElement.classList.contains('glossary-term')) {
             console.log('click σε glossary-term');
@@ -129,6 +132,19 @@ window.onload = function () {
         else if (clickedElement.classList.contains('image-term')) {
             console.log("click in image link ");
 
+        }
+        // click για επέκταση εικόνας
+        else if (clickedElement.classList.contains('fa-expand-arrows-alt')){
+            console.log("fa-expand-arrows-alt");
+            let button = clickedElement.closest(".fullscreen-button");
+            let imgSrc = button.getAttribute("img-src");
+
+            // Εμφανίζουμε το lightbox
+            let lightbox = document.getElementById("lightbox");
+            let lightboxImg = document.getElementById("lightbox-img");
+
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add("active");
         }
         // click σε εικόνα
         else if (clickedElement.tagName == 'img' || clickedElement.classList.contains('fa-arrow-right')){
