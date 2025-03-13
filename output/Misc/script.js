@@ -8,7 +8,7 @@ window.onload = function () {
     termpopup = new TermPopup();
     // άδειο popup που θα εμφανιστεί αν γίνει click σε image
     imagepopup = new ImagePopup();
-    // όλα τα popup που δημιουργούνται για κάθε first-glossary-term
+    // map με όλα τα popup που δημιουργούνται για κάθε first-glossary-term
     const termpopups = new Map();
     
     // Εντοπισμός όλων των στοιχείων <span class="first-glossary-term">
@@ -25,85 +25,61 @@ window.onload = function () {
         
         
         const rect = termElement.getBoundingClientRect();
-        const popupTop = Math.max(lastPopupBottom + 10, rect.top + window.scrollY);
-        xpos = screenWidth * 0.75; // Δεξιά του όρου
+        console.log('rect.top:'+rect.top)
+        const popupTop = Math.max(lastPopupBottom + 10, rect.top + window.scrollY-TermPopup.height); ///2);
+        
         ypos = popupTop; // Στο ύψος του όρου
-        firsttermpopup.setPosition(xpos,ypos);
-        
-        
-        lastPopupBottom = popupTop + TermPopup.height;
+        firsttermpopup.setPosition(ypos);
+
+        lastPopupBottom = popupTop + TermPopup.height+ TermPopup.padding*2;
 
     });
     
-    //imagepopup = new ImagePopup("Εικόνα 2","../Images/chapter1/image2.jpeg","Τρισδιάστατη απεικόνιση ενός υδραίικου βαρκαλά, τοποθετημένου σε σύστημα συντεταγμένων x, y, z.");
-    //y = findAvailableY(0,ImagePopup.height);
-    //imagepopup.setPosition(screenWidth * 0.75,y);
-    
     // Εμφάνιση popup για τον όρο
-    function showPopupTerm(termText, clickX, clickY) {
-        console.log({termText: termText});
+    function showPopupTerm(termText,clickY) {
+        //console.log({termText: termText});
         const definition = findDefinition(termText, glossary);
 
         // Αν δεν βρεθεί ο όρος, σταματάμε
         if (!definition.term) return;
         
-        //popup = new Popup(definition);
-        // θέση της λέξης στην οποία έγινε click
-        //const termRect = term.getBoundingClientRect();
-        //xcoord = termRect.x;
-        //ycoord = termRect.top;
-        xcoord = clickX;
         ycoord = clickY;
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
         const windowScrollY = window.scrollY;
         
-        let posY = windowScrollY+ycoord-20;
+        let posY = windowScrollY+ycoord;
         termpopup.newTerm(definition);
         posY = findAvailableY(posY,TermPopup.height);
-        termpopup.setPosition(screenWidth * 0.75,posY);
+        termpopup.setPosition(posY);
         
         //popup.style.display = 'block';
 
     }
-    // Ψάχνει τον όρο στο λεξικό και επιστρέφει τα δεδομένα του, ορισμό, συνώνυμα κτλ.
-    function findDefinition(termText, glossary) {
-        let definition = { term: null, data: null };
-
-        glossary.forEach((value, key) => {
-            if (key.includes(termText) || termText.includes(key)) {
-                definition.term = key;
-                definition.data = value;
-            }
-        });
-
-        return definition;
-    }
     
     
-    // Συνάρτηση για event listener
+    // Συνάρτηση για event listener - click οπουδήποτε στο body
     function onBodyClick(event) {
         // Σε ποιο στοιχείο έγινε click
         const clickedElement = event.target;
         // το κεντρικό μενού
         const menu = document.querySelector('.nav-menu'); 
-        console.log('onBodyClick: '+clickedElement.textContent.trim());
+        //console.log('onBodyClick: '+clickedElement.textContent.trim());
+        // click σε εικόνα που πιάνει όλη την οθόνη <- κλείσιμο εικόνας
         if (clickedElement.id === "lightbox") {
+            console.log('click σε lightbox');
             clickedElement.classList.remove("active");
         }
-        // click σε όρο
+        // click σε όρο <- εμφάνιση popup δεξιά
         if (clickedElement.classList.contains('glossary-term')) {
-            console.log('click σε glossary-term');
+            console.log('click -> glossary-term');
             termText = clickedElement.textContent.trim();
             definition = findDefinition(termText, glossary);
-            let clickX = event.clientX;
             let clickY = event.clientY;
             const popupElement = clickedElement.closest('.popup');
             // Έλεγχος αν το clicked στοιχείο είναι μέσα σε popup
             if (!popupElement) {
-                
-                showPopupTerm(event.target.textContent.trim(), clickX, clickY);
-                
+                showPopupTerm(event.target.textContent.trim(), clickY-15);
             }
             else{
                 const pp = termpopups.get(popupElement);
@@ -113,29 +89,25 @@ window.onload = function () {
                 else{
                     termpopup.visitTerm(definition);
                 }   
-            }
-
-            
+            }   
         }
-        // click σε πρωτοεμφανιζόμενο όρο
+        // click σε πρωτοεμφανιζόμενο όρο <-
         else if (clickedElement.classList.contains('first-glossary-term')) {
-            console.log('click σε first-glossary-term');
+            console.log('click -> first-glossary-term');
             termText = clickedElement.textContent.trim();
             definition = findDefinition(termText, glossary);
             popupElement = document.getElementById(`popup-${definition.term}`);
-            //pp = termpopups.get(popupElement);
             clickedpopup = termpopups.get(popupElement);
             clickedpopup.isVisible = true;
             popupElement.style.display = 'block';
         }
-        // click σε link εικόνας TODO
+        // click σε link για εικόνα  <- TODO
         else if (clickedElement.classList.contains('image-term')) {
-            console.log("click in image link ");
-
+            console.log("click -> image link ");
         }
-        // click για επέκταση εικόνας
+        // click σε κουμπί expand εικόνας  <- εικόνα σε lightbox 
         else if (clickedElement.classList.contains('fa-expand-arrows-alt')){
-            console.log("fa-expand-arrows-alt");
+            console.log("click -> expand εικόνας");
             let button = clickedElement.closest(".fullscreen-button");
             let imgSrc = button.getAttribute("img-src");
 
@@ -146,13 +118,13 @@ window.onload = function () {
             lightboxImg.src = imgSrc;
             lightbox.classList.add("active");
         }
-        // click σε εικόνα
+        // click για παράθεση εικόνας δεξιά  <-
         else if (clickedElement.tagName == 'img' || clickedElement.classList.contains('fa-arrow-right')){
-            console.log('click σε img');
+            console.log('click - img');
             //  (στο αρχικό κείμενο και όχι μέσα σε popup)
             let figureElement = clickedElement.closest('figure');
             if (figureElement) {
-                console.log("figureElement")
+                //console.log("figureElement")
                 //const imageId = clickedElement.id;
                 //console.log(imageId);
                 let imageElement = figureElement.querySelector('img');
@@ -173,12 +145,12 @@ window.onload = function () {
                         imagepopup.hide();
                     }
                     imagepopup = new ImagePopup(beforeColon,imageData.src,afterColon);
-                    ypos = findAvailableY(clickY-50,ImagePopup.height);
-                    console.log("ypos:", ypos);
-                    
-                    xpos = screenWidth * 0.75; // Δεξιά του όρου
+                    //ypos = findAvailableY(clickY-50,ImagePopup.height);
+                    //console.log("ypos:", ypos);
+                    ypos = clickY;
+                    //xpos = screenWidth * 0.75; // Δεξιά του όρου
                     // = popupTop; // Στο ύψος του όρου
-                    imagepopup.setPosition(xpos,ypos);
+                    imagepopup.setPosition(ypos);
                     termpopups.forEach((popup, key) => {
                         if (popup.wasVisible) {
                             popup.hide();
@@ -189,9 +161,10 @@ window.onload = function () {
         }
         // click σε κλείσιμο εικόνας 
         else if (clickedElement.classList.contains('popup-close')) {
+            console.log('click σε popup-close εικόνας');
             const popupElement = clickedElement.closest('.image-popup');
             if (popupElement) {
-                console.log('click σε popup-close εικόνας');
+                
                 popupElement.remove();
                 imagepopup = null;
                 termpopups.forEach((popup, key) => {
@@ -252,21 +225,7 @@ window.onload = function () {
     }
     // Προσθήκη του listener
     document.body.addEventListener('click', onBodyClick);
-
-    // Αν θέλω διαγραφή
-    //document.body.removeEventListener('click', onBodyClick);
-
-
-
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navMenu = document.querySelector(".nav-menu");
-    const content = document.querySelector(".content");
-
-    menuToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("open");
-        // Εναλλαγή του κειμένου στο κουμπί
-        menuToggle.textContent = navMenu.classList.contains("open") ? "◀" : "▶";
-    });
+    
     // Βρίσκει την πρώτη διαθέσιμη y συντεταγμένη 
     function findAvailableY(y, height) {
         let newY = y;
@@ -275,15 +234,7 @@ window.onload = function () {
         for (const popup of termpopups.values()) {
             
             const popupRect = popup.popupElement.getBoundingClientRect();
-            console.log({
-            id: popup.popupElement.id,
-            top: popupRect.top,
-            bottom: popupRect.bottom,
-            left: popupRect.left,
-            right: popupRect.right,
-            height: popupRect.height,
-            width: popupRect.width,
-            });
+            
             // Αν υπάρχει επικάλυψη στο y
             if (
                 newY < popupRect.bottom && // Το πάνω του νέου είναι πριν το κάτω του υπάρχοντος
@@ -297,27 +248,61 @@ window.onload = function () {
 
         return newY;
     }
-    const backToTopBtn = document.querySelector(".back-to-top");
-    backToTopBtn.addEventListener("click", function () {
+
+    /** Κουμπί εμφάνισης/απόκρυψης κεντρικού μενού στο πάνω μέρος της ιστοσελίδας **/
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+    //const content = document.querySelector(".content");
+    menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("open");
+        // Εναλλαγή του κειμένου στο κουμπί
+        menuToggle.textContent = navMenu.classList.contains("open") ? "◀" : "▶";
+    });
+    /** Κουμπί επιστροφής στο πάνω μέρος της ιστοσελίδας **/
+    const backToTopButton = document.querySelector(".back-to-top");
+    backToTopButton.addEventListener("click", function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
-    // αν σκρολάρω
+    /** Σκρολάρισμα οθόνης **/
     window.addEventListener("scroll", () => {
         let scrollPosition = window.scrollY; // Παίρνει την κάθετη θέση του scroll
         //console.log("Scroll position:", scrollPosition);
          if (window.scrollY > 300) {
-            backToTopBtn.style.display = "flex";
+            backToTopButton.style.display = "flex";
         } else {
-            backToTopBtn.style.display = "none";
+            backToTopButton.style.display = "none";
         }
-        if (Popup.centeredPopup !=null){
-            console.log("center");
-           Popup.centeredPopup.placePopup();
-        }
+        // TODO: τι να κάνω με το popup - να το εξαφανίζω;
+        //if (Popup.centeredPopup !=null){
+        //    console.log("center");
+        //   Popup.centeredPopup.placePopup();
+        //}
+        document.querySelectorAll("h1, h2").forEach((heading) => {
+
+            if (scrollPosition >= heading.offsetTop && scrollPosition < heading.offsetTop + heading.offsetHeight) {
+              document.querySelectorAll(".nav-menu a").forEach((link) => {
+                console.log(heading.id);
+                link.classList.toggle("active", link.getAttribute("href") === `#${heading.id}`);
+              });
+            }
+          });
     });
     
-    // Αλλαγή μεγέθους
+    /** Αλλαγή μεγέθους οθόνης- TODO μήπως css **/
     window.onresize = function() {
         console.log("resize");
+    }
+
+
+    /** Ψάχνει τον όρο στο λεξικό όρων (glossary) και επιστρέφει τα δεδομένα του, ορισμό, συνώνυμα κτλ. **/
+    function findDefinition(termText, glossary) {
+        let definition = { term: null, data: null };
+        glossary.forEach((value, key) => {
+            if (key.includes(termText) || termText.includes(key)) {
+                definition.term = key;
+                definition.data = value;
+            }
+        });
+        return definition;
     }
 };

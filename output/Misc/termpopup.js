@@ -1,5 +1,4 @@
 class TermPopup extends Popup{
-    static height = 220; // ύψος όπως έχει τεθεί με CSS
     constructor(definition={}, index = null,ispinned=false) {
         super();
 
@@ -7,7 +6,7 @@ class TermPopup extends Popup{
         this.history = [definition]; // Ιστορικό όρων
         this.currentIndex = 0; // Τρέχον σημείο στο ιστορικό
         this.ispinned = ispinned;
-        this.popupElement = document.createElement('div');
+        
         
         this.createPopupElement();
         // Προσθήκη περιεχομένου
@@ -16,18 +15,18 @@ class TermPopup extends Popup{
         else
             this.popupElement.style.display="none";
         // Προσθήκη του popup στο DOM
-        document.body.appendChild(this.popupElement);
+        const sidebarRight = document.querySelector('.sidebar-right');
+        sidebarRight.appendChild(this.popupElement);
+        //document.body.appendChild(this.popupElement);
         this.updateNavigationButtons();
     }
     // Δημιουργία του popup DOM στοιχείου
     createPopupElement() {
         super.createPopupElement();
+        this.popupElement.className = 'popup';
         if (this.ispinned){
-            this.popupElement.className = 'popup popup-pinned';
+            this.popupElement.classList.add('popup-pinned');
             this.popupElement.id = `popup-${this.history[this.currentIndex].term}`;
-        }
-        else{
-            this.popupElement.className = 'popup';
         }
         
 
@@ -35,9 +34,7 @@ class TermPopup extends Popup{
         this.popupHeader = document.createElement('div');
         this.popupHeader.className = 'popup-header';
 
-        this.popupTitle = document.createElement('h3');
-        this.popupTitle.className = 'popup-title';
-
+        
         this.popupMenu = document.createElement('div');
         this.popupMenu.className = 'popup-menu';
 
@@ -45,48 +42,54 @@ class TermPopup extends Popup{
         this.homeButton.className = 'popup-home';
         this.homeButton.setAttribute('aria-label', 'Αρχική');
         this.homeButton.innerHTML = '<i class="fa-solid fa-house"></i>';
-
+        this.popupMenu.appendChild(this.homeButton);
+        
         this.backButton = document.createElement('button');
         this.backButton.className = 'popup-back';
         this.backButton.setAttribute('aria-label', 'Πίσω');
         this.backButton.innerHTML = '<i class="fa-solid fa-arrow-left"></i>';
-
+        this.popupMenu.appendChild(this.backButton);
+        
         
         this.forwardButton = document.createElement('button');
         this.forwardButton.className = 'popup-forward';
         this.forwardButton.setAttribute('aria-label', 'Μπροστά');
         this.forwardButton.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
-
+        this.popupMenu.appendChild(this.forwardButton);
+        
         this.moveButton = document.createElement('button');
         this.moveButton.className = 'popup-center';
         this.moveButton.setAttribute('aria-label', 'Κέντρο');
         this.moveButton.innerHTML = '<i class="fa-solid fa-up-right-and-down-left-from-center"></i>';
-
+        this.popupMenu.appendChild(this.moveButton);
+        
 
         this.closeButton = document.createElement('button');
         this.closeButton.className = 'popup-close';
         this.closeButton.setAttribute('aria-label', 'Κλείσιμο');
         this.closeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-
-        // Προσθήκη κουμπιών στο menu
-        this.popupMenu.appendChild(this.moveButton);
-        this.popupMenu.appendChild(this.homeButton);
-        this.popupMenu.appendChild(this.backButton);
-        this.popupMenu.appendChild(this.forwardButton);
         this.popupMenu.appendChild(this.closeButton);
         
 
-        // Προσθήκη τίτλου και menu στο header
-        this.popupHeader.appendChild(this.popupTitle);
+        this.popupTitle = document.createElement('h3');
+        this.popupTitle.className = 'popup-title';
+
+
+        this.popupCategory = document.createElement('div');
+        this.popupCategory.className = 'popup-category';
+
+
+        // Προσθήκη menu, title, category στο header
         this.popupHeader.appendChild(this.popupMenu);
+        this.popupHeader.appendChild(this.popupTitle);
+        this.popupHeader.appendChild(this.popupCategory);
+        
 
         // Δημιουργία του περιεχομένου
         this.popupContent = document.createElement('div');
         this.popupContent.className = 'popup-content';
 
-        this.popupCategory = document.createElement('div');
-        this.popupCategory.className = 'popup-category';
-
+        
         this.popupDefinition = document.createElement('div');
         this.popupDefinition.className = 'popup-definition';
 
@@ -101,13 +104,14 @@ class TermPopup extends Popup{
 
 
         this.imageDivElemet = document.createElement('div');
-
         this.imageDivElemet.className = 'image-popup-image-wrapper';
-        this.imageElement = document.createElement('img');
-        this.imageElement.alt = 'Image Popup';
-        this.imageElement.className = 'image-popup-image';
-        this.imageDivElemet.appendChild(this.imageElement);
+        // Αν ο όρος περιλαμβάνει και εικόνα
         if (this.history[this.currentIndex].data?.design || this.history[this.currentIndex].data?.photo){
+            this.imageElement = document.createElement('img');
+            this.imageElement.alt = 'Image Popup';
+            this.imageElement.className = 'image-popup-image';
+            this.imageDivElemet.appendChild(this.imageElement);
+        
             this.imageElement.src = this.history[this.currentIndex].data?.path;
             this.imageUrl = this.history[this.currentIndex].data?.path;
             this.caption = this.history[this.currentIndex].term+':'+this.history[this.currentIndex].data?.definition;
@@ -121,7 +125,6 @@ class TermPopup extends Popup{
 
 
         // Προσθήκη περιεχομένου στο content
-        this.popupContent.appendChild(this.popupCategory);
         this.popupContent.appendChild(this.popupDefinition);
         this.popupContent.appendChild(this.popupSynonyms);
         this.popupContent.appendChild(this.popupAntonyms);
@@ -218,22 +221,7 @@ class TermPopup extends Popup{
         }
         this.updateNavigationButtons();
     }
-    // Αν είναι ορατό ή όχι το popup
-    isVisible() {
-        return this.popupElement.style.display !== 'none';
-    }
 
-
-    // Ενημέρωση της θέσης του popup
-    setPosition(x, y) {
-        this.x = x;
-        this.y = y;
-        this.popupElement.style.position = 'absolute';
-        this.popupElement.style.left = `${x}px`;
-        this.popupElement.style.top = `${y}px`;
-        this.popupElement.style.display = 'block';
-    }
-    
     setList(list,popuplist,title){
         popuplist.innerHTML = title;
         list.forEach((element) => {
@@ -252,6 +240,7 @@ class TermPopup extends Popup{
             popuplist.lastChild.remove(); // Αφαίρεση τελευταίου κόμματος
         }
     }
+    // ενεργοποίηση/απενεργοποίηση κουμπιών για πλοήγηση στο ιστορικό όρων
     updateNavigationButtons() {
         this.homeButton.disabled = this.currentIndex == 0;
         this.backButton.disabled = this.currentIndex <= 0;

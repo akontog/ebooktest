@@ -1,28 +1,40 @@
 
 :root {
-  --sidebar-width:300px;
+  --sidebar-width:200px;
   --blue: #1e90ff;
   --white: #ffffff;
   --laptop: 800px;
 }
+
 /**** Δομή σελίδας ****/
 body {
+    font-family: "Georgia", serif;
+    background: #f3f3f3;
+    color: #333;
     margin: 0;
-    font-family: Arial, sans-serif;
     padding: 0;
+    line-height: 1.6;
 }
 .container {
     display: flex;
-    max-width: 100%;
-    min-height: 100vh;
+    max-width: 800px; 
+    background: white;
+    padding: 40px;
+    margin: 50px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
-.sidebar-left, .sidebar-right {
+
+.sidebar-right {
+    position: relative;
     flex: 1; /* Παίρνουν διαθέσιμο χώρο */
     max-width: var(--sidebar-width); /* Μέγιστο πλάτος */
-    
-    padding: 15px;
+    width:100%;
+    background: #eeeeee;
     min-height: 100vh;
+    box-sizing: border-box; /* Για να υπολογίζεται το padding στο πλάτος */
 }
+
 .content {
     flex: 2; /* Παίρνει περισσότερο χώρο */
     min-width: 500px;
@@ -37,19 +49,27 @@ header {
     font-size: 20px;
     font-weight: bold;
 }
+
 .sidebar-left, .sidebar-right, .nav-menu {
-    background-color: #EED9C4;
+    /* background-color: #EED9C4;*/
 }
+
 /**** Πτυσσόμενο μενού ****/
 .nav-menu {
     position: fixed;
     top: 50px;
-    left: -300px; /* Κρυφό αρχικά */
+    left: -200px; /* Κρυφό αρχικά */
     height:100%;
     width: var(--sidebar-width);
     transition: left 0.3s ease; /* Ομαλή κίνηση */
     padding-top: 20px;
     font-family: Arial, sans-serif;
+    overflow-y: auto;
+}
+
+.nav-menu a.active {
+  font-weight: bold;
+  color: blue;
 }
 
 .nav-menu ul {
@@ -111,47 +131,125 @@ header {
     background-color: #575757;
 }
 
-/**** Popup εικόνων ****/
-.image-popup {
+/**** popup ****/
+.popup {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    z-index: 1000;
-    width: 200px;
-    height: 220px;
+    height: 200px;   
+}
+
+.popup-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Στοιχίζει τα κουμπιά δεξιά */
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd; /* Διαχωριστική γραμμή */
+}
+
+.popup-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    margin: 5px 0 0;
+    text-align: left;
+}
+
+.popup-menu {
+    display: flex;
+    gap: 5px;
+}
+
+
+.popup-main-content {
+    flex: 1;
+    max-height: 120px;
+    overflow-y: auto;
+    padding-top: 5px;
+}
+
+.popup-category {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+    text-align: left;
+}
+
+.popup-content {
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 120px;
+    
+    padding-right: 5px; /* Για να μην επικαλύπτεται το scroll */
+}
+
+.popup-definition {
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.popup-synonyms, .popup-antonyms {
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+}
+
+.popup-synonyms span, .popup-antonyms span {
+    font-weight: bold;
+    color: black;
 }
 
 .image-popup-image-wrapper {
-
-    overflow: auto; /* Scrollbar αν χρειαστεί */
     display: flex;
     justify-content: center;
     align-items: center;
+    max-height: 60%; /* Περιορίζει την εικόνα */
+    overflow: hidden; /* Αποφεύγει το stretching */
 }
 
 .image-popup-image {
+    max-width: 100%;
     height: auto;
-    overflow: auto;
 }
 
 .image-popup-caption {
-    font-size: 14px;
-    color: #555;
+    font-size: 12px;
+    color: black;
     text-align: center;
-    overflow: auto;
+    padding: 5px;
 }
 
-.image-popup-close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+.hidden {
+    display: none;
+}
+
+/**** Κουμπιά σε όλα τα popups ****/
+.popup-menu button{
     background: none;
     border: none;
-    font-size: 16px;
+    color: black;
+    font-size: 12px;
     cursor: pointer;
+    padding: 2px;
+    transition: 0.3s;
+}
+
+button:hover {
+    color: #007bff;
+}
+
+/* Στυλ για απενεργοποιημένα κουμπιά */
+button:disabled {
+    cursor: not-allowed; 
+    color: #aaa; 
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 
@@ -177,129 +275,7 @@ header {
 }
 
 
-/**** popup όρων ****/
-.popup {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: white;
-    width: 200px;
-    height: 220px;
-    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
-    z-index: 1000;
-    transition: all 0.5s ease;
-    @media (min-width: 800px) {
-        width:25%;
-    }
-    @media (max-width: 799px) {
-            width:100%;
-    }
-}
 
-.popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.popup-title {
-    font-size: 16px;
-    margin: 0;
-}
-.popup-main-content {
-    display: flex;
-    flex-direction: row;
-}
-
-.popup-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.popup-move,
-.popup-close,
-.popup-back,
-.popup-forward{
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.popup-definition {
-    padding: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-    white-space: normal;
-    border: 1px solid #ccc;
-    overflow-y: auto;
-    height: auto;
-    flex-grow: 1;
-    color: #444;
-}
-
-.popup-category,
-.popup-synonyms,
-.popup-antonyms,
-.popup-terms {
-    padding: 5px 0;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #333;
-}
-
-.popup-category {
-    font-weight: bold;
-    color: #007bff;
-}
-
-.popup-synonyms {
-    color: #008000;
-}
-
-.popup-antonyms {
-    color: #000080;
-}
-
-.popup-terms {
-    color: #800000;
-}
-
-.popup .image-popup-image {
-    max-width: 100px; /* Μικρό πλάτος */
-    max-height: 100px; /* Μικρό ύψος */
-    width: auto;
-    height: auto;
-}
-
-
-
-.hidden {
-    display: none;
-}
-
-
-button {
-    font-size: 1rem;
-    background: none; 
-    border: none;
-    cursor: pointer;
-    color: #333;
-}
-
-button:hover {
-    color: #007BFF;
-}
-
-/* Στυλ για απενεργοποιημένα κουμπιά */
-button:disabled {
-    cursor: not-allowed; 
-    color: #aaa; 
-    opacity: 0.6;
-    pointer-events: none;
-}
 /**** Σύνδεσμοι μέσα στο κείμενο ****/
 /* color: inherit; Διατηρεί το αρχικό χρώμα του κειμένου */
 .glossary-term, .image-term, .first-glossary-term{
@@ -409,5 +385,18 @@ figure:hover .figure-buttons {
     .content {
         flex: 1; /* Μειώνει το χώρο που καταλαμβάνει για μικρότερες οθόνες */
         padding: 15px; /* Λίγο μικρότερο padding */
+    }
+    .popup-term {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 300px;
+        height: auto;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        padding: 15px;
     }
 }

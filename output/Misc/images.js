@@ -4,7 +4,7 @@ imageMap.set("image-1", {
     src: "../Images/chapter1/image1.wmf",
     alt: ".",
     class: "text-image",
-    caption: "Σχ. 1: Σχέδιο Ναυπηγικών Γραμμών παραδοσιακού σκάφους τύπου «πέραμα»."
+    caption: "None"
 });
 
 imageMap.set("image-2", {
@@ -32,14 +32,14 @@ imageMap.set("image-5", {
     src: "../Images/chapter1/image5.wmf",
     alt: ".",
     class: "text-image",
-    caption: "Σχ. 5: Ναυπηγικό σχέδιο μελέτης υδραίικου βαρκαλά. Το σχέδιο περιλαμβάνει ισάλους (W), διαμήκεις γραμμές (BB) και θεωρητικούς νομείς (F)."
+    caption: "None"
 });
 
 imageMap.set("image-6", {
     src: "../Images/chapter1/image6.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 1: Παραδοσιακή σάλα στο ναυπηγείο των αδελφών Μαυρίκων στη Σύρο, 1983. Μουσείο Ναυπηγικών και Ναυτικών Τεχνών του Αιγαίου, Φωτ. Μ. Τερζοπούλου."
+    caption: "None"
 });
 
 imageMap.set("image-7", {
@@ -53,7 +53,7 @@ imageMap.set("image-8", {
     src: "../Images/chapter1/image8.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 3: Σύγχρονη σάλα και χνάρια της σάλας του τσερνικοπεράματος «Μεταμόρφωση» στο ναυπηγείο Patmos Marine. Κατασκευή σάλας Κ. Χωριανόπουλος. Μουσείο Ναυπηγικών και Ναυτικών Τεχνών του Αιγαίου, Φωτ.: Κ. Χωριανόπουλος."
+    caption: "None"
 });
 
 imageMap.set("image-9", {
@@ -74,14 +74,21 @@ imageMap.set("image-11", {
     src: "../Images/chapter1/image11.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 5: μισομόδελο με φέτες από φυσικό ξύλο, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-12", {
+    src: "../Images/chapter1/image12.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-13", {
     src: "../Images/chapter1/image13.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 9: Μισομόδελο ενός τρεχαντηριού από το Ναυπηγείο Γ. Νικολάκη στην Αστυπάλαια. ΜΝΝΤΑ."
+    caption: "None"
 });
 
 imageMap.set("image-14", {
@@ -109,7 +116,7 @@ imageMap.set("image-17", {
     src: "../Images/chapter1/image17.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 11: Μισομόδελο ενός περάματος με νομείς, από το ναυπηγείο των αδελφών Γιαμουγιάννη στο Πλωμάρι, 1995. Φωτ. Κ. Δαμιανίδης, ΜΝΝΤΑ."
+    caption: "None"
 });
 
 imageMap.set("image-18", {
@@ -130,7 +137,7 @@ imageMap.set("image-20", {
     src: "../Images/chapter1/image20.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Σχ. 8: Οι ναυπηγικές γραμμές μίας βάρκας με διαγωγή (μαύρο) και οι βασικές γραμμές της ίδιας βάρκας χωρίς διαγωγή (κόκκινο)."
+    caption: "None"
 });
 
 imageMap.set("image-21", {
@@ -144,28 +151,49 @@ imageMap.set("image-22", {
     src: "../Images/chapter1/image22.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 13: Τοποθέτηση των τεριζιών για την σχεδίαση της κουπαστής στην πλάγια όψη, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-23", {
+    src: "../Images/chapter1/image23.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-24", {
     src: "../Images/chapter1/image24.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 15: Τοποθέτηση του τεριζιού για την σχεδίαση του ασσού της καρίνας και του πρυμνιού ποδοστάματος, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-25", {
+    src: "../Images/chapter1/image25.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-26", {
     src: "../Images/chapter1/image26.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 17: Σχεδιασμός του μεσαίου νομέα, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-27", {
+    src: "../Images/chapter1/image27.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-28", {
     src: "../Images/chapter1/image28.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Σχ. 10: Οι πρώτες βασικές ναυπηγικές γραμμές της σάλας (κουπαστή, καρίνα, ποδοστάματα, ασσοί, μεσαίος νομέας και προβολές του καθρέφτη)."
+    caption: "None"
 });
 
 imageMap.set("image-29", {
@@ -193,35 +221,49 @@ imageMap.set("image-32", {
     src: "../Images/chapter1/image32.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 22: Ολοκλήρωση της τοποθέτησης των τεριζιών του πλωριού τμήματος, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
 });
 
 imageMap.set("image-33", {
     src: "../Images/chapter1/image33.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 23: Παράδειγμα εξομάλυνσης της διαμήκους ΒΒ1 στο σημείο που τέμνει το νομέα 4Β, μετά από προσεκτική παρατήρηση της γραμμής που έχει σχηματιστεί με το τερίζι, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-34", {
+    src: "../Images/chapter1/image34.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-35", {
     src: "../Images/chapter1/image35.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Σχ. 11: Οι ναυπηγικές γραμμές του υδραίικου βαρκαλά που επιλέχθηκε να σχεδιαστούν στη σάλα. Σχεδιάζονται: οι νομείς 8S, 6S, 4S, 2S, Μ, 2Β, 4Β, 6Β, 8Β και 10B, οι ίσαλοι WL1, WL2, WL3, WL4 και WL5, οι διαμήκεις BB1 και BB2 και η διαγώνια D1."
+    caption: "None"
 });
 
 imageMap.set("image-36", {
     src: "../Images/chapter1/image36.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 25: Τοποθέτηση τεριζιών για τη σχεδίαση των νομέων στη πρύμνη, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-37", {
+    src: "../Images/chapter1/image37.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-38", {
     src: "../Images/chapter1/image38.jpeg",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 27: Ολοκλήρωση της τοποθέτησης των τεριζιών του πλωριού τμήματος, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
 });
 
 imageMap.set("image-39", {
@@ -235,14 +277,28 @@ imageMap.set("image-40", {
     src: "../Images/chapter1/image40.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 28: Η σχεδίαση της επάνω ακμής του καθρέφτη (κορώνη) στη σάλα, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-41", {
+    src: "../Images/chapter1/image41.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-42", {
     src: "../Images/chapter1/image42.png",
     alt: ".",
     class: "text-image",
-    caption: "3ος τρόπος: Με κατασκευή χναριού της αρχικής καμπύλης του νομέα, σημάδεμα με μολύβι του πάχους του πετσώματος πάνω στο χνάρι και κόψιμο στην κορδέλα του τμήματος που αντιστοιχεί στο πέτσωμα για να φτιαχτεί η καμπύλη του νομέα που θα κατασκευαστεί."
+    caption: "None"
+});
+
+imageMap.set("image-43", {
+    src: "../Images/chapter1/image43.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-44", {
@@ -256,49 +312,91 @@ imageMap.set("image-45", {
     src: "../Images/chapter1/image45.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 30: Οι μετρήσεις και το σημάδεμα του ασσού από το σχέδιο των νομέων, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-46", {
+    src: "../Images/chapter1/image46.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-47", {
     src: "../Images/chapter1/image47.png",
     alt: ".",
     class: "text-image",
-    caption: "2ος τρόπος: Με την τοποθέτηση τεριζιού πάνω στην εξωτερική καμπύλη του νομέα, το κόψιμο του χναριού περίπου στο σχήμα του νομέα και τη χρησιμοποίηση της ροδέλας με την τρύπα στο κέντρο για να προσδιοριστεί με τον ίδιο τρόπο όπως αναφέρθηκε πιο πριν η εσωτερική πλευρά του πετσώματος πάνω στο χνάρι. Στην περίπτωση αυτή το χνάρι πρέπει να είναι πιο λεπτό από το πάχος του τεριζού."
+    caption: "None"
 });
 
 imageMap.set("image-48", {
     src: "../Images/chapter1/image49.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 32: Σημάδεμα των αξόνων επάνω στο χνάρι του νομέα, για την αποτύπωση των κλίσεων (στέλες) , Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-49", {
+    src: "../Images/chapter1/image50.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-50", {
     src: "../Images/chapter1/image51.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 34: Αποτύπωση στέλας νομέα πάνω σε παρίσαλο, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-51", {
+    src: "../Images/chapter1/image52.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-52", {
     src: "../Images/chapter1/image53.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 36: Μέτρηση της προβολή της κλίσης/στέλας με τη βοήθεια ξύλου στο πάχος νομέα, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-53", {
+    src: "../Images/chapter1/image54.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-54", {
     src: "../Images/chapter1/image55.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 38: Σημάδεμα της στέλας του νομέα πάνω στο χνάρι του, Φωτ.: Γ. Κυριαζής"
+    caption: "None"
+});
+
+imageMap.set("image-55", {
+    src: "../Images/chapter1/image56.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-56", {
     src: "../Images/chapter1/image57.png",
     alt: ".",
     class: "text-image",
-    caption: "Εικ. 40: Σημάδεμα της γραμμής της στέλας επάνω στο ξύλο του νομέα, Φωτ.: Γ. Κυριαζής."
+    caption: "None"
+});
+
+imageMap.set("image-57", {
+    src: "../Images/chapter1/image58.png",
+    alt: ".",
+    class: "text-image",
+    caption: "None"
 });
 
 imageMap.set("image-58", {
