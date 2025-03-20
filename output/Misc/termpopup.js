@@ -1,7 +1,7 @@
 class TermPopup extends Popup{
-    constructor(definition={}, index = null) {
+    constructor(definition={}) {
         super();
-        this.index = index; // Μοναδικός δείκτης
+        
         this.history = [definition]; // Ιστορικό όρων
         this.currentIndex = 0; // Τρέχον σημείο στο ιστορικό
         
@@ -88,12 +88,11 @@ class TermPopup extends Popup{
         
         this.popupSynonyms = document.createElement('div');
         this.popupSynonyms.className = 'popup-synonyms';
-        //this.popupSynonyms.id = `popup-synonyms`;
         
+
         this.popupAntonyms = document.createElement('div');
         this.popupAntonyms.className = 'popup-antonyms';
-        //this.popupAntonyms.id = `popup-antonyms`;
-
+        
 
         this.imageDivElemet = document.createElement('div');
         this.imageDivElemet.className = 'image-popup-image-wrapper';

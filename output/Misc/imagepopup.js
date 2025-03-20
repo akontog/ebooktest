@@ -53,12 +53,12 @@ class ImagePopup  extends Popup{
         this.popupMenu.appendChild(this.moveButton);
         
         // Προσθήκη κουμπιού για την "fixed-unfixed" κατάσταση
-        this.fixedButton = document.createElement('button');
-        this.fixedButton.className = 'popup-unfixed';
-        this.fixedButton.setAttribute('aria-label', 'Unfixed');
+        //this.fixedButton = document.createElement('button');
+        //this.fixedButton.className = 'popup-unfixed';
+        //this.fixedButton.setAttribute('aria-label', 'Unfixed');
         // Εικονίδιο κλειστής κλειδαριάς
-        this.fixedButton.innerHTML = '<i class="fa-solid fa-lock-open"></i>';  
-        this.popupMenu.appendChild(this.fixedButton);
+        //this.fixedButton.innerHTML = '<i class="fa-solid fa-lock-open"></i>';  
+        //this.popupMenu.appendChild(this.fixedButton);
         
         // Δημιουργία κουμπιού κλεισίματος
         this.closeButton = document.createElement('button');
@@ -104,7 +104,7 @@ class ImagePopup  extends Popup{
     // Προσθήκη event listeners για τα κουμπιά
     addEventListeners() {
         super.addEventListeners();
-        this.fixedButton.addEventListener('click', () => this.fixPopup());
+        //this.fixedButton.addEventListener('click', () => this.fixPopup());
     }
     
     

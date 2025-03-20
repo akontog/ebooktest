@@ -8,7 +8,7 @@ window.onload = function () {
     const termpopups = new Map();
     // άδειο popup που θα εμφανιστεί αν γίνει click σε glossary-term
     termpopup = new TermPopup();
-    termpopup.popupElement.style.position = 'absolute';
+    //termpopup.popupElement.style.position = 'absolute';
     termpopup.popupElement.style.display = 'none';
     // άδειο popup που θα εμφανιστεί αν γίνει click σε image
     imagepopup = new ImagePopup(termpopups);
@@ -35,7 +35,7 @@ window.onload = function () {
         
         ypos = popupTop; // Στο ύψος του όρου
         firsttermpopup.setPosition(ypos);
-        firsttermpopup.popupElement.style.position = 'absolute';
+        //firsttermpopup.popupElement.style.position = 'absolute';
         lastPopupBottom = popupTop + TermPopup.height+ TermPopup.padding*2;
 
     });
