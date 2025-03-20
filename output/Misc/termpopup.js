@@ -1,19 +1,12 @@
 class TermPopup extends Popup{
     constructor(definition={}, index = null,ispinned=false) {
         super();
-
         this.index = index; // Μοναδικός δείκτης
         this.history = [definition]; // Ιστορικό όρων
         this.currentIndex = 0; // Τρέχον σημείο στο ιστορικό
-        this.ispinned = ispinned;
-        
         
         this.createPopupElement();
-        // Προσθήκη περιεχομένου
-        if (ispinned)
-            this.updatePopupContent(definition);
-        else
-            this.popupElement.style.display="none";
+        this.updatePopupContent(definition);
         // Προσθήκη του popup στο DOM
         const sidebarRight = document.querySelector('.sidebar-right');
         sidebarRight.appendChild(this.popupElement);
@@ -60,7 +53,7 @@ class TermPopup extends Popup{
         this.moveButton = document.createElement('button');
         this.moveButton.className = 'popup-center';
         this.moveButton.setAttribute('aria-label', 'Κέντρο');
-        this.moveButton.innerHTML = '<i class="fa-solid fa-up-right-and-down-left-from-center"></i>';
+        this.moveButton.innerHTML = '<i class="fa-solid fa-expand-arrows-alt"></i>';
         this.popupMenu.appendChild(this.moveButton);
         
 
@@ -245,6 +238,5 @@ class TermPopup extends Popup{
         this.homeButton.disabled = this.currentIndex == 0;
         this.backButton.disabled = this.currentIndex <= 0;
         this.forwardButton.disabled = this.currentIndex >= this.history.length - 1;
-
     }
 }

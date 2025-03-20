@@ -1,17 +1,38 @@
 class ImagePopup  extends Popup{
     static height = 300; // ύψος όπως έχει τεθεί με CSS
-    constructor(title, imageUrl, caption) {
+    constructor(termpopups) {
         super();
-        this.isfixed = false;
-        this.title = title;
-        this.imageUrl = imageUrl; // URL της εικόνας
-        this.caption = caption;  // Λεζάντα
+        this.termpopups = termpopups;
         this.createPopupElement();
-        document.body.appendChild(this.popupElement);
+        // Βρες το sidebar
+        let sidebar = document.querySelector('.sidebar-right');
+
+        
+        // Υπολόγισε τη μέση του sidebar
+        let sidebarRect = sidebar.getBoundingClientRect();
+        let centerX = sidebarRect.left + sidebarRect.width / 2;
+
+        // Ορισμός θέσης popup
         this.popupElement.style.display="none";
+        this.popupElement.style.position = 'fixed';
+        this.popupElement.style.top = '50%';
+        this.popupElement.style.left = `${centerX}px`;
+        this.popupElement.style.transform = 'translate(-50%, -50%)'; // Κεντράρει και στους 2 άξονες
+        
+        //this.y = (window.innerHeight - Popup.height) / 2 + window.scrollY-100;
+        //this.popupElement.style.top = `${this.y}px`;
         // Προσθήκη του popup στο DOM
         const sidebarRight = document.querySelector('.sidebar-right');
         sidebarRight.appendChild(this.popupElement);
+    }
+    // Θέτει τις πληροφορίες της εικόνας
+    setImageInfo(title, imageUrl, caption){
+        this.title = title;
+        this.imageUrl = imageUrl; // URL της εικόνας
+        this.caption = caption;  // Λεζάντα
+        this.popupTitle.textContent = this.title;
+        this.imageElement.src = this.imageUrl;
+        this.captionElement.textContent = this.caption;
     }
 
     // Δημιουργία DOM στοιχείου για το popup
@@ -28,7 +49,7 @@ class ImagePopup  extends Popup{
         this.moveButton = document.createElement('button');
         this.moveButton.className = 'popup-center';
         this.moveButton.setAttribute('aria-label', 'Κέντρο');
-        this.moveButton.innerHTML = '<i class="fa-solid fa-up-right-and-down-left-from-center"></i>';
+        this.moveButton.innerHTML = '<i class="fa-solid fa-expand-arrows-alt"></i>';
         this.popupMenu.appendChild(this.moveButton);
         
         // Προσθήκη κουμπιού για την "fixed-unfixed" κατάσταση
@@ -36,7 +57,7 @@ class ImagePopup  extends Popup{
         this.fixedButton.className = 'popup-unfixed';
         this.fixedButton.setAttribute('aria-label', 'Unfixed');
         // Εικονίδιο κλειστής κλειδαριάς
-        this.fixedButton.innerHTML = '<i class="fa-solid fa-lock"></i>';  
+        this.fixedButton.innerHTML = '<i class="fa-solid fa-lock-open"></i>';  
         this.popupMenu.appendChild(this.fixedButton);
         
         // Δημιουργία κουμπιού κλεισίματος
@@ -48,7 +69,7 @@ class ImagePopup  extends Popup{
 
         this.popupTitle = document.createElement('h3');
         this.popupTitle.className = 'popup-title';
-        this.popupTitle.textContent = this.title;
+        
 
         // Προσθήκη menu και τίτλου στο header
         this.popupHeader.appendChild(this.popupMenu);
@@ -62,7 +83,7 @@ class ImagePopup  extends Popup{
         this.imageDivElemet = document.createElement('div');
         this.imageDivElemet.className = 'image-popup-image-wrapper';
         this.imageElement = document.createElement('img');
-        this.imageElement.src = this.imageUrl;
+        
         this.imageElement.alt = 'Image Popup';
         this.imageElement.className = 'image-popup-image';
         this.imageDivElemet.appendChild(this.imageElement);
@@ -70,7 +91,7 @@ class ImagePopup  extends Popup{
         // Δημιουργία της λεζάντας
         this.captionElement = document.createElement('div');
         this.captionElement.className = 'image-popup-caption';
-        this.captionElement.textContent = this.caption;
+        
 
         this.popupContent.appendChild(this.imageDivElemet);
         this.popupContent.appendChild(this.captionElement);
@@ -85,24 +106,14 @@ class ImagePopup  extends Popup{
         super.addEventListeners();
         this.fixedButton.addEventListener('click', () => this.fixPopup());
     }
-    fixPopup(){
-        this.popupElement.style.transition = 'none';
-        if (this.isfixed==false) {
-            this.isfixed=true;
-            const rect = this.popupElement.getBoundingClientRect();
-            // Αλλαγή σε "unfixed" (absolute)
-            this.popupElement.style.position = 'fixed';
-            this.popupElement.style.top = `${rect.top}px`;
-            this.fixedButton.innerHTML = '<i class="fa-solid fa-lock-open"></i>';
-            
-        } else {
-            this.isfixed=false;
-            // Αλλαγή σε "fixed"
-            this.popupElement.style.position = 'absolute';
-            this.popupElement.style.top = `${this.y}px`;
-            this.fixedButton.innerHTML = '<i class="fa-solid fa-lock"></i>';
-        }
+    
+    
+    closePopup(){
+        this.isVisible = false;
+        Popup.imagevisible = true;
+        this.termpopups.forEach((popup, key) => {
+            popup.toggle();
+        });
+        this.toggle();
     }
-    
-    
 }

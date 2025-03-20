@@ -109,27 +109,7 @@ header {
 .nav-menu li.open > ul {
     display: block; /* Εμφάνιση του υπομενού */
 }
-.menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1100;
-}
 
-.menu-toggle:hover {
-    background-color: #575757;
-}
 
 /**** popup ****/
 .popup {
@@ -140,6 +120,7 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    width: 160px;
     height: 200px;   
 }
 
@@ -330,7 +311,6 @@ figure:hover .figure-buttons {
     display: flex;
 }
 .figure-buttons {
-
     display: none;
     flex-direction: column;
     align-items: center; /* Κεντράρισμα των κουμπιών */
@@ -354,28 +334,42 @@ figure:hover .figure-buttons {
     border-radius: 5px;
     display: block; /* Κάνει τα εικονίδια block elements ώστε να στοιχίζονται σωστά */
 }
-/**** Κουμπί επιστροφής ****/
-.back-to-top {
+/**** Κουμπιά (backtotop, navmenu, popups)  ****/
+.toggle{
     position: fixed;
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.backtotoptoggle {
+    display:none;
     bottom: 20px;
     right: 20px;
-    width: 40px;
-    height: 40px;
-    border: none;
-    font-size: 20px;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.3s, transform 0.3s;
 }
 
-.back-to-top:hover {
-    background: #0056b3;
+.navmenutoggle {
+    top: 20px;
+    left: 10px;   
+}
+
+.popupstoggle{
+    top: 20px;
+    right: 10px;
+}
+.toggle:hover {
+    background-color: #575757;
     transform: scale(1.1);
 }
-
 
 /**** Responsive ****/
 @media (max-width: 800px) { 

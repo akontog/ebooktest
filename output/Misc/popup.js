@@ -1,11 +1,17 @@
 class Popup{
-	static height = 200; // ύψος όπως έχει τεθεί με CSS
-    static padding = 20; // padding όπως έχει τεθεί με CSS
+    // αν, συνολικά τα popups θα φαίνονται ή όχι όπως έχει επιλεγεί από το toggle
+    static togglevisible = true; 
+    // αν συνολικά τα popups θα φαίνονται ή όχι σε σχέση με Pinned image
+    static imagevisible = true;
+    // ύψος όπως έχει τεθεί με CSS
+	static height = 200; 
+    // padding όπως έχει τεθεί με CSS
+    static padding = 20; 
     // κεντραρισμένο popup, μπορεί να είναι μόνο ένα:
     static centeredPopup = null;
 	constructor(){
-		// Αν ήταν ορατό πριν κρυφτεί για να εμφανιστεί κάποιο image
-		this.wasVisible = true;
+		// Αν το συγκεκριμένο είναι επιλεγμένο να είναι ορατό
+		this.isVisible = true;
         this.popupElement = document.createElement('div');
 	}
 
@@ -22,28 +28,31 @@ class Popup{
     // Ενημέρωση της θέσης του popup
     setPosition(y) {
         this.y = y;
-        this.popupElement.style.position = 'absolute';
         this.popupElement.style.top = `${y}px`;
-        this.popupElement.style.display = 'block';
+        
     }
 	
-
 	show() {
         this.popupElement.style.display = "block";
     }
 
-    hide() {
+    hide(){
         this.popupElement.style.display = "none";
     }
     
-    // Κλείσιμο του popup
-    closePopup() {
-        this.wasVisible = false;
-        this.popupElement.style.display = 'none';
+    toggle(){
+        if (this.isVisible && Popup.togglevisible && Popup.imagevisible)
+            this.show();
+        else
+            this.hide();
     }
-
     // Αν είναι ορατό ή όχι το popup
     isVisible() {
         return this.popupElement.style.display !== 'none';
+    }
+    closePopup(){
+        console.log('close in popup');
+        this.isVisible = false;
+        this.toggle();
     }
 }

@@ -4,12 +4,15 @@ window.onload = function () {
     // Πλάτος οθόνης
     const screenWidth = window.innerWidth;
 
-    // άδειο popup που θα εμφανιστεί αν γίνει click σε glossary-term
-    termpopup = new TermPopup();
-    // άδειο popup που θα εμφανιστεί αν γίνει click σε image
-    imagepopup = new ImagePopup();
     // map με όλα τα popup που δημιουργούνται για κάθε first-glossary-term
     const termpopups = new Map();
+    // άδειο popup που θα εμφανιστεί αν γίνει click σε glossary-term
+    termpopup = new TermPopup();
+    termpopup.popupElement.style.position = 'absolute';
+    termpopup.popupElement.style.display = 'none';
+    // άδειο popup που θα εμφανιστεί αν γίνει click σε image
+    imagepopup = new ImagePopup(termpopups);
+    
     
     // Εντοπισμός όλων των στοιχείων <span class="first-glossary-term">
     const glossaryTerms = document.querySelectorAll('span.first-glossary-term');
@@ -21,8 +24,10 @@ window.onload = function () {
         // Δημιουργία αντικειμένου Popup
         const firsttermpopup = new TermPopup(definition, index, true);
         // Προσθήκη στο map
+        // κλειδί το στοιχείο popup
         termpopups.set(firsttermpopup.popupElement, firsttermpopup);
-        
+        // κλειδί το στοιχείο του όρου.
+        //termpopups.set(termElement, firsttermpopup);
         
         const rect = termElement.getBoundingClientRect();
         console.log('rect.top:'+rect.top)
@@ -30,7 +35,7 @@ window.onload = function () {
         
         ypos = popupTop; // Στο ύψος του όρου
         firsttermpopup.setPosition(ypos);
-
+        firsttermpopup.popupElement.style.position = 'absolute';
         lastPopupBottom = popupTop + TermPopup.height+ TermPopup.padding*2;
 
     });
@@ -52,8 +57,9 @@ window.onload = function () {
         termpopup.newTerm(definition);
         posY = findAvailableY(posY,TermPopup.height);
         termpopup.setPosition(posY);
+        console.log('in showPopupTerm'+posY)
         
-        //popup.style.display = 'block';
+        termpopup.popupElement.style.display = 'flex';
 
     }
     
@@ -67,7 +73,7 @@ window.onload = function () {
         //console.log('onBodyClick: '+clickedElement.textContent.trim());
         // click σε εικόνα που πιάνει όλη την οθόνη <- κλείσιμο εικόνας
         if (clickedElement.id === "lightbox") {
-            console.log('click σε lightbox');
+            console.log('click -> lightbox');
             clickedElement.classList.remove("active");
         }
         // click σε όρο <- εμφάνιση popup δεξιά
@@ -98,8 +104,8 @@ window.onload = function () {
             definition = findDefinition(termText, glossary);
             popupElement = document.getElementById(`popup-${definition.term}`);
             clickedpopup = termpopups.get(popupElement);
-            clickedpopup.isVisible = true;
-            popupElement.style.display = 'block';
+            clickedpopup.isVisible = !clickedpopup.isVisible;
+            clickedpopup.toggle();
         }
         // click σε link για εικόνα  <- TODO
         else if (clickedElement.classList.contains('image-term')) {
@@ -128,6 +134,7 @@ window.onload = function () {
                 //const imageId = clickedElement.id;
                 //console.log(imageId);
                 let imageElement = figureElement.querySelector('img');
+                //imageTop = imageElement.getBoundingClientRect().top + window.scrollY;
                 if (imageElement) {
                     const imageId = imageElement.id;
                     const imageData = imageMap.get(imageId);
@@ -139,23 +146,23 @@ window.onload = function () {
                     const captionParts = imageData.caption.split(":");
                     const beforeColon = captionParts[0].trim(); // Πριν το ":"
                     const afterColon = captionParts.slice(1).join(":").trim(); // Μετά το ":"
-                    let clickY = event.clientY+ window.scrollY;
-                    console.log("clickY:", clickY);
-                    if (imagepopup!=null){
-                        imagepopup.hide();
-                    }
-                    imagepopup = new ImagePopup(beforeColon,imageData.src,afterColon);
+                    //let clickY = event.clientY+ window.scrollY-40;
+                    //console.log("clickY:", clickY);
+                    //if (imagepopup!=null){
+                     //   imagepopup.hide();
+                    //}
+                    //imagepopup = new ImagePopup(beforeColon,imageData.src,afterColon);
+                    imagepopup.setImageInfo(beforeColon,imageData.src,afterColon);
                     //ypos = findAvailableY(clickY-50,ImagePopup.height);
                     //console.log("ypos:", ypos);
-                    ypos = clickY;
-                    //xpos = screenWidth * 0.75; // Δεξιά του όρου
-                    // = popupTop; // Στο ύψος του όρου
-                    imagepopup.setPosition(ypos);
+                    //imagepopup.setPosition(imageTop);
+                    Popup.imagevisible = false;
                     termpopups.forEach((popup, key) => {
-                        if (popup.wasVisible) {
-                            popup.hide();
-                        }
+                        popup.toggle();
                     });
+                    imagepopup.show();
+
+                    //imagepopup.fixPopup();
                 }
             }
         }
@@ -167,10 +174,9 @@ window.onload = function () {
                 
                 popupElement.remove();
                 imagepopup = null;
+                Popup.imagevisible = false;
                 termpopups.forEach((popup, key) => {
-                    if (popup.wasVisible) {
-                        popup.show();
-                    }
+                    popup.toggle();
                 });
 
             }
@@ -250,7 +256,7 @@ window.onload = function () {
     }
 
     /** Κουμπί εμφάνισης/απόκρυψης κεντρικού μενού στο πάνω μέρος της ιστοσελίδας **/
-    const menuToggle = document.querySelector(".menu-toggle");
+    const menuToggle = document.querySelector(".navmenutoggle");
     const navMenu = document.querySelector(".nav-menu");
     //const content = document.querySelector(".content");
     menuToggle.addEventListener("click", () => {
@@ -258,9 +264,18 @@ window.onload = function () {
         // Εναλλαγή του κειμένου στο κουμπί
         menuToggle.textContent = navMenu.classList.contains("open") ? "◀" : "▶";
     });
+
+    /** Κουμπί εμφάνισης/απόκρυψης popups **/
+    const popupToggle = document.querySelector(".popupstoggle");
+    popupToggle.addEventListener("click", () => {
+        console.log('open-close');
+        popupToggle.textContent = Popup.togglevisible ? "◀" : "▶";
+        showPopups(!Popup.togglevisible);
+    });
+
     /** Κουμπί επιστροφής στο πάνω μέρος της ιστοσελίδας **/
-    const backToTopButton = document.querySelector(".back-to-top");
-    backToTopButton.addEventListener("click", function () {
+    const backToTopToggle = document.querySelector(".backtotoptoggle");
+    backToTopToggle.addEventListener("click", function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
     /** Σκρολάρισμα οθόνης **/
@@ -268,9 +283,9 @@ window.onload = function () {
         let scrollPosition = window.scrollY; // Παίρνει την κάθετη θέση του scroll
         //console.log("Scroll position:", scrollPosition);
          if (window.scrollY > 300) {
-            backToTopButton.style.display = "flex";
+            backToTopToggle.style.display = "flex";
         } else {
-            backToTopButton.style.display = "none";
+            backToTopToggle.style.display = "none";
         }
         // TODO: τι να κάνω με το popup - να το εξαφανίζω;
         //if (Popup.centeredPopup !=null){
@@ -304,5 +319,17 @@ window.onload = function () {
             }
         });
         return definition;
+    }
+    /** Εμφάνιση, απόκρυψη popups **/
+    function showPopups(show){
+        Popup.togglevisible = show;
+        termpopups.forEach((popup, key) => {
+            if (Popup.togglevisible && popup.isVisible) {
+                popup.show();
+            }
+            else{
+                popup.hide();
+            }
+        });
     }
 };
