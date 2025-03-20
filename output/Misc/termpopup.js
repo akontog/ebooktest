@@ -1,5 +1,5 @@
 class TermPopup extends Popup{
-    constructor(definition={}, index = null,ispinned=false) {
+    constructor(definition={}, index = null) {
         super();
         this.index = index; // Μοναδικός δείκτης
         this.history = [definition]; // Ιστορικό όρων
@@ -17,10 +17,9 @@ class TermPopup extends Popup{
     createPopupElement() {
         super.createPopupElement();
         this.popupElement.className = 'popup';
-        if (this.ispinned){
-            this.popupElement.classList.add('popup-pinned');
-            this.popupElement.id = `popup-${this.history[this.currentIndex].term}`;
-        }
+        
+        this.popupElement.classList.add('popup-pinned');
+        this.popupElement.id = `popup-${this.history[this.currentIndex].term}`;
         
 
         // Δημιουργία του header

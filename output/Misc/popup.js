@@ -39,7 +39,7 @@ class Popup{
     hide(){
         this.popupElement.style.display = "none";
     }
-    
+    // Θέτει την κατάσταση του popup
     toggle(){
         if (this.isVisible && Popup.togglevisible && Popup.imagevisible)
             this.show();
@@ -51,7 +51,7 @@ class Popup{
         return this.popupElement.style.display !== 'none';
     }
     closePopup(){
-        console.log('close in popup');
+        
         this.isVisible = false;
         this.toggle();
     }
