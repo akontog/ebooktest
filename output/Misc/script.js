@@ -262,14 +262,14 @@ window.onload = function () {
     menuToggle.addEventListener("click", () => {
         navMenu.classList.toggle("open");
         // Εναλλαγή του κειμένου στο κουμπί
-        menuToggle.textContent = navMenu.classList.contains("open") ? "◀" : "▶";
+        //menuToggle.textContent = navMenu.classList.contains("open") ? "◀" : "▶";
     });
 
     /** Κουμπί εμφάνισης/απόκρυψης popups **/
     const popupToggle = document.querySelector(".popupstoggle");
     popupToggle.addEventListener("click", () => {
         console.log('open-close');
-        popupToggle.textContent = Popup.togglevisible ? "◀" : "▶";
+        //popupToggle.textContent = Popup.togglevisible ? "◀" : "▶";
         showPopups(!Popup.togglevisible);
     });
 

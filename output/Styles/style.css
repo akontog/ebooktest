@@ -1,4 +1,4 @@
-
+/**** Μεταβλητές ****/
 :root {
   --sidebar-width:200px;
   --blue: #1e90ff;
@@ -27,7 +27,7 @@ body {
 
 .sidebar-right {
     position: relative;
-    flex: 1; /* Παίρνουν διαθέσιμο χώρο */
+    /*flex: 1;  Παίρνουν διαθέσιμο χώρο */
     max-width: var(--sidebar-width); /* Μέγιστο πλάτος */
     width:100%;
     background: #eeeeee;
@@ -167,7 +167,6 @@ header {
     flex-direction: column;
     overflow-y: auto;
     max-height: 120px;
-    
     padding-right: 5px; /* Για να μην επικαλύπτεται το scroll */
 }
 
@@ -211,7 +210,7 @@ header {
     display: none;
 }
 
-/**** Κουμπιά σε όλα τα popups ****/
+/**** Κουμπιά στα popups ****/
 .popup-menu button{
     background: none;
     border: none;
@@ -335,41 +334,58 @@ figure:hover .figure-buttons {
     border-radius: 5px;
     display: block; /* Κάνει τα εικονίδια block elements ώστε να στοιχίζονται σωστά */
 }
+
 /**** Κουμπιά (backtotop, navmenu, popups)  ****/
-.toggle{
+.toggle {
     position: fixed;
-    width: 30px;
+    width: 40px;
     height: 30px;
-    background-color: #333;
-    color: white;
+    background: none;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    z-index: 1100;
 }
 
+/* Δημιουργία τριών γραμμών */
+.toggle::before {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    box-shadow: 0 8px 0 white, 0 -8px 0 white; /* Δύο επιπλέον γραμμές */
+    transition: 0.3s;
+}
+
+
+/* Hover effect */
+.toggle:hover::before {
+    background-color: #bbb;
+    box-shadow: 0 8px 0 #bbb, 0 -8px 0 #bbb;
+}
+
+/* θέση back to top toggle, κάτω δεξιά*/
 .backtotoptoggle {
-    display:none;
+    display: none;
     bottom: 20px;
     right: 20px;
 }
 
+/* θέση nav menu toggle, κέντρο, δεξιά*/
 .navmenutoggle {
-    top: 20px;
-    left: 10px;   
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
 }
 
-.popupstoggle{
-    top: 20px;
-    right: 10px;
-}
-.toggle:hover {
-    background-color: #575757;
-    transform: scale(1.1);
+/* θέση popups toggle, κέντρο, αριστερά */
+.popupstoggle {
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
 }
 
 /**** Responsive ****/

@@ -15,9 +15,9 @@ class ImagePopup  extends Popup{
         // Ορισμός θέσης popup
         this.popupElement.style.display="none";
         this.popupElement.style.position = 'fixed';
-        this.popupElement.style.top = '50%';
-        this.popupElement.style.left = `${centerX}px`;
-        this.popupElement.style.transform = 'translate(-50%, -50%)'; // Κεντράρει και στους 2 άξονες
+        this.popupElement.style.top = '30%';
+        //this.popupElement.style.left = `${centerX}px`;
+        //this.popupElement.style.transform = 'translate(-50%, -50%)'; // Κεντράρει και στους 2 άξονες
         
         //this.y = (window.innerHeight - Popup.height) / 2 + window.scrollY-100;
         //this.popupElement.style.top = `${this.y}px`;
@@ -116,4 +116,5 @@ class ImagePopup  extends Popup{
         });
         this.toggle();
     }
+    
 }
