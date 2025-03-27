@@ -75,6 +75,8 @@ window.onload = function () {
         if (clickedElement.id === "lightbox") {
             console.log('click -> lightbox');
             clickedElement.classList.remove("active");
+            // Επανεμφάνιση των κουμπιών
+            document.querySelectorAll(".toggle").forEach(btn => btn.classList.remove("hidden"));
         }
         // click σε όρο <- εμφάνιση popup δεξιά
         if (clickedElement.classList.contains('glossary-term')) {
@@ -112,14 +114,53 @@ window.onload = function () {
             console.log("click -> image link ");
         }
         // click σε κουμπί expand εικόνας  <- εικόνα σε lightbox 
-        else if (clickedElement.classList.contains('fa-expand-arrows-alt')){
+        else if (clickedElement.tagName == 'img' || clickedElement.classList.contains('fa-expand-arrows-alt')){
             console.log("click -> expand εικόνας");
-            // Βρίσκουμε το source της εικόνας
+
+            let imgSrc = "";
+            let caption = "";
+            // Ελέγχουμε αν το κλικ έγινε σε εικόνα που βρίσκεται μέσα σε figure
+            let figure = clickedElement.closest("figure");
+            if (figure) {
+                imgSrc = figure.querySelector("img")?.src || "";
+                caption = figure.querySelector("figcaption")?.innerHTML.trim() || "";
+            }
+            // Ελέγχουμε αν προέρχεται από κουμπί fullscreen-button
             let button = clickedElement.closest(".fullscreen-button");
-            let imgSrc = button.getAttribute("img-src");
-            // Βρίσκουμε το caption της εικόνας
-            let figure = button.closest("figure");
-            let caption = figure ? figure.querySelector("figcaption")?.innerHTML.trim() : "";
+            if (button) {
+                imgSrc = button.getAttribute("img-src");
+
+                // Βρίσκουμε το figcaption μέσα στο figure
+                let figure = button.closest("figure");
+                caption = figure ? figure.querySelector("figcaption")?.innerHTML.trim() : "";
+            }
+
+            // Ελέγχουμε αν προέρχεται από popup
+            let popupButton = clickedElement.closest(".popup-expand, .popup-center");
+            if (popupButton) {
+                let popup = popupButton.closest(".popup");
+                let imgElement = popup.querySelector(".image-popup-image");
+                let captionElement = popup.querySelector(".image-popup-caption, .popup-title"); // Δοκιμάζουμε και popup-title
+
+                imgSrc = imgElement ? imgElement.src : "";
+                caption = captionElement ? captionElement.innerHTML.trim() : "";
+            }
+
+            // Ελέγχουμε αν προέρχεται από popup-pinned
+            let pinnedPopup = clickedElement.closest(".popup-pinned");
+            if (pinnedPopup) {
+                let imgElement = pinnedPopup.querySelector(".image-popup-image");
+                let titleElement = pinnedPopup.querySelector(".popup-title");
+
+                imgSrc = imgElement ? imgElement.src : "";
+                caption = titleElement ? titleElement.innerHTML.trim() : "";
+            }
+
+            // Αν δεν βρήκαμε εικόνα, δεν κάνουμε τίποτα
+            if (!imgSrc) {
+                console.warn("Δεν βρέθηκε εικόνα για προβολή στο lightbox.");
+                return;
+            }
 
             // Εμφανίζουμε το lightbox
             let lightbox = document.getElementById("lightbox");
@@ -129,9 +170,12 @@ window.onload = function () {
             lightboxImg.src = imgSrc;
             lightboxCaption.innerHTML = caption;
             lightbox.classList.add("active");
+
+            // Κρύβουμε τα toggle κουμπιά
+            document.querySelectorAll(".toggle").forEach(btn => btn.classList.add("hidden"));
         }
         // click για παράθεση εικόνας δεξιά  <-
-        else if (clickedElement.tagName == 'img' || clickedElement.classList.contains('fa-arrow-right')){
+        else if (clickedElement.classList.contains('fa-arrow-right')){
             console.log('click - img');
             //  (στο αρχικό κείμενο και όχι μέσα σε popup)
             let figureElement = clickedElement.closest('figure');

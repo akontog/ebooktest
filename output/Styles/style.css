@@ -206,9 +206,7 @@ header {
     padding: 5px;
 }
 
-.hidden {
-    display: none;
-}
+
 
 /**** Κουμπιά στα popups ****/
 .popup-menu button{
@@ -424,4 +422,8 @@ figure:hover .figure-buttons {
         z-index: 1000;
         padding: 15px;
     }
+}
+
+.hidden {
+    display: none;
 }
