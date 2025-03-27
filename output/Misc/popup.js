@@ -23,6 +23,7 @@ class Popup{
     	this.closeButton.addEventListener('click', () => this.closePopup());
     	//this.moveButton.addEventListener('click', () => this.placePopup());
         //this.moveButton.addEventListener('click', () => this.openImagePage());
+        this.expandButton.addEventListener('click', () => this.expand())
     }
 	
     // Ενημέρωση της θέσης του popup
@@ -54,5 +55,8 @@ class Popup{
         
         this.isVisible = false;
         this.toggle();
+    }
+    expand(){
+        console.log('expand popup')
     }
 }

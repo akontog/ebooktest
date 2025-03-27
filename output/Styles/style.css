@@ -245,11 +245,25 @@ button:disabled {
     display: none;
     justify-content: center;
     align-items: center;
+    flex-direction: column; /* Στοιχίζει κάθετα την εικόνα και το caption */
 }
 .lightbox img {
     max-width: 90%;
-    max-height: 90%;
+    max-height: 80%; /* Μειώνουμε λίγο το ύψος για να χωράει το caption */
     border-radius: 8px;
+}
+.lightbox p {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    max-width: 90%;
+    max-height: 3.6em; /* Περιορίζει το ύψος σε περίπου 3 γραμμές */
+    overflow-y: auto; /* Ενεργοποιεί scroll αν το κείμενο είναι μεγαλύτερο */
+    padding: 5px;
+
+
+    
 }
 .lightbox.active {
     display: flex;
@@ -350,7 +364,7 @@ figure:hover .figure-buttons {
 }
 
 /* Δημιουργία τριών γραμμών */
-.toggle::before {
+.navmenutoggle::before, .popupstoggle::before {
     content: "";
     display: block;
     width: 25px;

@@ -49,11 +49,11 @@ class TermPopup extends Popup{
         this.forwardButton.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
         this.popupMenu.appendChild(this.forwardButton);
         
-        this.moveButton = document.createElement('button');
-        this.moveButton.className = 'popup-center';
-        this.moveButton.setAttribute('aria-label', 'Κέντρο');
-        this.moveButton.innerHTML = '<i class="fa-solid fa-expand-arrows-alt"></i>';
-        this.popupMenu.appendChild(this.moveButton);
+        this.expandButton = document.createElement('button');
+        this.expandButton.className = 'popup-center';
+        this.expandButton.setAttribute('aria-label', 'Κέντρο');
+        this.expandButton.innerHTML = '<i class="fa-solid fa-expand-arrows-alt"></i>';
+        this.popupMenu.appendChild(this.expandButton);
         
 
         this.closeButton = document.createElement('button');
@@ -107,11 +107,11 @@ class TermPopup extends Popup{
             this.imageUrl = this.history[this.currentIndex].data?.path;
             this.caption = this.history[this.currentIndex].term+':'+this.history[this.currentIndex].data?.definition;
             this.imageDivElemet.classList.remove('hidden');
-            this.moveButton.classList.remove('hidden');
+            this.expandButton.classList.remove('hidden');
         }
         else{
             this.imageDivElemet.classList.add('hidden');
-            this.moveButton.classList.add('hidden');
+            this.expandButton.classList.add('hidden');
         }
 
 
@@ -204,11 +204,11 @@ class TermPopup extends Popup{
             this.caption = this.history[this.currentIndex].term+':'+this.history[this.currentIndex].data?.definition;
             
             this.imageDivElemet.classList.remove('hidden');
-            this.moveButton.classList.remove('hidden');
+            this.expandButton.classList.remove('hidden');
         }
         else{
             this.imageDivElemet.classList.add('hidden');
-            this.moveButton.classList.add('hidden');
+            this.expandButton.classList.add('hidden');
         }
         this.updateNavigationButtons();
     }

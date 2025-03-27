@@ -46,11 +46,11 @@ class ImagePopup  extends Popup{
         this.popupMenu = document.createElement('div');
         this.popupMenu.className = 'popup-menu';
 
-        this.moveButton = document.createElement('button');
-        this.moveButton.className = 'popup-center';
-        this.moveButton.setAttribute('aria-label', 'Κέντρο');
-        this.moveButton.innerHTML = '<i class="fa-solid fa-expand-arrows-alt"></i>';
-        this.popupMenu.appendChild(this.moveButton);
+        this.expandButton = document.createElement('button');
+        this.expandButton.className = 'popup-expand';
+        this.expandButton.setAttribute('aria-label', 'Κέντρο');
+        this.expandButton.innerHTML = '<i class="fa-solid fa-expand-arrows-alt"></i>';
+        this.popupMenu.appendChild(this.expandButton);
         
         // Προσθήκη κουμπιού για την "fixed-unfixed" κατάσταση
         //this.fixedButton = document.createElement('button');
@@ -105,6 +105,7 @@ class ImagePopup  extends Popup{
     addEventListeners() {
         super.addEventListeners();
         //this.fixedButton.addEventListener('click', () => this.fixPopup());
+
     }
     
     

@@ -114,14 +114,20 @@ window.onload = function () {
         // click σε κουμπί expand εικόνας  <- εικόνα σε lightbox 
         else if (clickedElement.classList.contains('fa-expand-arrows-alt')){
             console.log("click -> expand εικόνας");
+            // Βρίσκουμε το source της εικόνας
             let button = clickedElement.closest(".fullscreen-button");
             let imgSrc = button.getAttribute("img-src");
+            // Βρίσκουμε το caption της εικόνας
+            let figure = button.closest("figure");
+            let caption = figure ? figure.querySelector("figcaption")?.innerHTML.trim() : "";
 
             // Εμφανίζουμε το lightbox
             let lightbox = document.getElementById("lightbox");
             let lightboxImg = document.getElementById("lightbox-img");
+            let lightboxCaption = document.getElementById("lightbox-caption");
 
             lightboxImg.src = imgSrc;
+            lightboxCaption.innerHTML = caption;
             lightbox.classList.add("active");
         }
         // click για παράθεση εικόνας δεξιά  <-
