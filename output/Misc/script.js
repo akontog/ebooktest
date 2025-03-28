@@ -119,15 +119,16 @@ window.onload = function () {
 
             let imgSrc = "";
             let caption = "";
-            // Ελέγχουμε αν το κλικ έγινε σε εικόνα που βρίσκεται μέσα σε figure
+            // εικόνα που βρίσκεται μέσα σε figure
             let figure = clickedElement.closest("figure");
             if (figure) {
                 imgSrc = figure.querySelector("img")?.src || "";
                 caption = figure.querySelector("figcaption")?.innerHTML.trim() || "";
             }
-            // Ελέγχουμε αν προέρχεται από κουμπί fullscreen-button
+            // κουμπί fullscreen-button
             let button = clickedElement.closest(".fullscreen-button");
             if (button) {
+                console.log('κουμπί fullscreen-button');
                 imgSrc = button.getAttribute("img-src");
 
                 // Βρίσκουμε το figcaption μέσα στο figure
@@ -135,27 +136,27 @@ window.onload = function () {
                 caption = figure ? figure.querySelector("figcaption")?.innerHTML.trim() : "";
             }
 
-            // Ελέγχουμε αν προέρχεται από popup
+            // προέρχεται από popup
             let popupButton = clickedElement.closest(".popup-expand, .popup-center");
             if (popupButton) {
+                console.log('προέρχεται από popup');
                 let popup = popupButton.closest(".popup");
                 let imgElement = popup.querySelector(".image-popup-image");
-                let captionElement = popup.querySelector(".image-popup-caption, .popup-title"); // Δοκιμάζουμε και popup-title
-
+                let captionTitleElement = popup.querySelector(".popup-title");
+                let captionTextElement = popup.querySelector(".image-popup-caption");
+                if (!captionTextElement){
+                    captionTextElement = popup.querySelector(".popup-definition");
+                }
+                // , .popup-title
                 imgSrc = imgElement ? imgElement.src : "";
-                caption = captionElement ? captionElement.innerHTML.trim() : "";
+                if (!captionTitleElement){
+                    caption = "";
+                }
+                else{
+                    caption = "<strong>"+captionTitleElement.innerHTML.trim()+"</strong>: "+
+                            captionTextElement.innerHTML.trim();
+                }
             }
-
-            // Ελέγχουμε αν προέρχεται από popup-pinned
-            let pinnedPopup = clickedElement.closest(".popup-pinned");
-            if (pinnedPopup) {
-                let imgElement = pinnedPopup.querySelector(".image-popup-image");
-                let titleElement = pinnedPopup.querySelector(".popup-title");
-
-                imgSrc = imgElement ? imgElement.src : "";
-                caption = titleElement ? titleElement.innerHTML.trim() : "";
-            }
-
             // Αν δεν βρήκαμε εικόνα, δεν κάνουμε τίποτα
             if (!imgSrc) {
                 console.warn("Δεν βρέθηκε εικόνα για προβολή στο lightbox.");

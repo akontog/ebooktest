@@ -1,7 +1,7 @@
 const imageMap = new Map();
 
 imageMap.set("image-1", {
-    src: "../Images/chapter1/image1.wmf",
+    src: "../Images/chapter1/image1.svg",
     alt: ".",
     class: "text-image",
     caption: "None"
@@ -29,7 +29,7 @@ imageMap.set("image-4", {
 });
 
 imageMap.set("image-5", {
-    src: "../Images/chapter1/image5.wmf",
+    src: "../Images/chapter1/image5.svg",
     alt: ".",
     class: "text-image",
     caption: "None"
@@ -57,7 +57,7 @@ imageMap.set("image-8", {
 });
 
 imageMap.set("image-9", {
-    src: "../Images/chapter1/image9.wmf",
+    src: "../Images/chapter1/image9.svg",
     alt: ".",
     class: "text-image",
     caption: "Σχ. 6: Αντίγραφο του ναυπηγικού δαπέδου, της σάλας, των αδελφών Μαυρίκων στη Σύρο. Τα σχέδια ισάλων και διαμήκων του κάθε καϊκιού έχουν κοπεί στη μέση σε δύο τμήματα και έχουν σχεδιαστεί το ένα πάνω στο άλλο για να χωρέσουν πάνω στο δάπεδο της. Το κατασκευασμένο αντίγραφο βρίσκεται στην εσωτερική έκθεση του Μουσείου Ναυπηγικών και Ναυτικών Τεχνών του Αιγαίου. Έχουν σχεδιαστεί έξι καΐκια και για να ξεχωρίζουν έχουν διαφορετικά χρώματα:"

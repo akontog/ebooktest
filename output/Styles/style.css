@@ -254,14 +254,10 @@ button:disabled {
     color: white;
     font-size: 14px;
     text-align: center;
-    margin-top: 10px;
     max-width: 90%;
-    max-height: 3.6em; /* Περιορίζει το ύψος σε περίπου 3 γραμμές */
-    overflow-y: auto; /* Ενεργοποιεί scroll αν το κείμενο είναι μεγαλύτερο */
-    padding: 5px;
-
-
-    
+    height: 3.6em; /* Περιορίζει το ύψος σε περίπου 3 γραμμές */
+    line-height: 1.2em;
+    /*overflow-y: auto;  Ενεργοποιεί scroll αν το κείμενο είναι μεγαλύτερο */
 }
 .lightbox.active {
     display: flex;
